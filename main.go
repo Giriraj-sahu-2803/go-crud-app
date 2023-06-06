@@ -1,8 +1,21 @@
 package main
 
+import (
+	app "gocrud/App"
+	"log"
+	"os"
+
+	"github.com/joho/godotenv"
+)
+
 func main() {
-	myApp := App{}
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	myApp := app.App{}
 	myApp.Initialise()
-	myApp.Run("localhost:5000")
-	myApp.handleRoutes()
+	myApp.Run(os.Getenv("URL"))
+	myApp.HandleRoutes()
 }
